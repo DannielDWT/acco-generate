@@ -109,8 +109,9 @@ def unparse_data(predict_indices, acco_indices_val):
         acco_terms = acco_indices_val[indices[L]].split(',')
         acco_corpus.append(acco_indices_val[indices[L]])
         acco_offset += float(acco_terms[1])
-    if len(acco_corpus) == len(set(predict_indices)):
-        print("yes")
+    #if len(acco_corpus) == len(set(predict_indices)):
+    #    print("yes")
+    print(acco_corpus)
     return acco_corpus
 
 

@@ -73,3 +73,47 @@ def tranning_model(Tx, n_a, n_melody_values, n_acco_values, reshapor, LSTM_cell,
     model = Model(inputs=[X, a0, c0], outputs=outputs)
 
     return model
+
+
+def predict_model(reshapor, LSTM_cell, densor, Tx,  n_melody_values, n_acco_values, n_a=64):
+    '''
+    :param reshapor:
+    调整输入维度
+    :param LSTM_cell:
+    训练后的单元
+    :param densor:
+    输出单元
+    :param Tx:
+    预测样本时序单元数目
+    :param n_melody_values:
+    主旋律表元素大小
+    :param n_acco_values:
+    伴奏表元素大小
+    :param n_a:
+    :param Ty:
+    :return:
+    '''
+
+    # Define the input of your model with a shape
+    X = Input(shape=(Tx, n_melody_values))
+
+    # Define s0, initial hidden state for the decoder LSTM
+    a0 = Input(shape=(n_a,), name='a0')
+    c0 = Input(shape=(n_a,), name='c0')
+    a = a0
+    c = c0
+
+    outputs = []
+
+    # Loop over Ty and generate a value at every time step
+    for t in range(Tx):
+        x = Lambda(lambda x: X[:, t, :])(X)
+        x = reshapor(x)
+        a, _, c = LSTM_cell(x, initial_state=[a, c])
+        out = densor(a)
+        outputs.append(out)
+
+    # Create model instance with the correct "inputs" and "outputs"
+    inference_model = Model(inputs=[X, a0, c0], outputs=outputs)
+
+    return inference_model
