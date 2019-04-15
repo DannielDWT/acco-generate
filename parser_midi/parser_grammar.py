@@ -46,7 +46,7 @@ def parse_data(melody_corpus, acco_corpus, melody_val_indices,
     for L in range(m):
         melody_offset = 0.0
         acco_offset = 0.0
-        melody_random_idx = np.random.choice(450 -  Tx)
+        melody_random_idx = np.random.choice(len(melody_corpus) -  Tx)
         melody_data = melody_corpus[melody_random_idx:melody_random_idx + Tx]
         for j in range(melody_random_idx):
             melody_terms = melody_corpus[j].split(',')
@@ -99,21 +99,40 @@ def unparse_data(predict_indices, acco_indices_val):
     '''
     acco_corpus = []
     acco_offset = 0.0
-    predict_indices_list = list(predict_indices)
+    #predict_indices_list = list(predict_indices)
     #print(predict_indices_list)
-    indices = list(set(predict_indices_list))
-    indices.sort(key=predict_indices_list.index)
+    #indices = list(set(predict_indices_list))
+    #indices.sort(key=predict_indices_list.index)
     #print(indices)
-    Y_len = len(indices)
-    for L in range(Y_len):
-        acco_terms = acco_indices_val[indices[L]].split(',')
-        acco_corpus.append(acco_indices_val[indices[L]])
-        acco_offset += float(acco_terms[1])
+    Y_len = len(predict_indices)
+    if Y_len > 0:
+        acco_corpus.append(acco_indices_val[predict_indices[0]])
+    for L in range(1, Y_len):
+        if predict_indices[L - 1] != predict_indices[L]:
+            acco_terms = acco_indices_val[predict_indices[L]].split(',')
+            acco_corpus.append(acco_indices_val[predict_indices[L]])
+            acco_offset += float(acco_terms[1])
+
     #if len(acco_corpus) == len(set(predict_indices)):
     #    print("yes")
     print(acco_corpus)
     return acco_corpus
 
-
+def parser_predict_data(melody_corpus, melody_val_indices):
+    '''
+    :param melody_corpus:
+    list类型，存放的从头到尾的主旋律的一个长字符串，依照时间顺序安排每个元素
+    :param melody_val_indices:
+    主旋律表
+    :return:
+    返回numpy.array类型，三维数组（1, Tx, n_melody_values)
+    '''
+    Tx = len(melody_corpus)
+    N_melody_values = len(set(melody_corpus))
+    X = np.zeros((1, Tx, N_melody_values), dtype=np.bool)
+    for idx in range(Tx):
+        melody_data_idx = melody_val_indices[melody_corpus[idx]]
+        X[0, idx, melody_data_idx] = 1
+    return np.asarray(X)
 
 

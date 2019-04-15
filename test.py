@@ -33,12 +33,12 @@ melody_measures, acco_measures = parser_midi_improved(melody_test_processed, acc
 #print(acco_measures[2].offset)
 aaa = get_acco_grammars_improved(acco_measures)
 bbb = get_melody_grammars_improved(melody_measures)
-#get_melody_musical_data_improved(bbb)
-#get_acco_musical_data_improved(aaa)
+get_melody_musical_data_improved(bbb)
+get_acco_musical_data_improved(aaa)
 '''
 aaa = get_melody_grammars(melody_measures)
 bbb = get_acco_grammars(acco_measures)
-'''
+
 melody_corpus, melody_values, melody_val_indices, melody_indices_val = load_melody_dict_improved(bbb)
 acco_corpus, acco_values, acco_val_indices, acco_indices_val = load_acco_dict_improved(aaa)
 
@@ -47,4 +47,5 @@ y = Y[:, 1, :]
 y = np.squeeze(y)
 indices_y =np.argmax(y, axis=-1)
 unparse_data(melody_corpus, indices_y, melody_indices_val, acco_indices_val)
+'''
 

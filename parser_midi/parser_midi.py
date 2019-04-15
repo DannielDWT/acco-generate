@@ -15,7 +15,7 @@
 from music21 import *
 from collections import defaultdict, OrderedDict
 from itertools import groupby, zip_longest
-from parser_midi.parser_music import parse_acco, unparse_acco
+from parser_midi.parser_music import *
 
 def parser_Midi(melody, accopaniment):
     '''
