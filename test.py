@@ -22,19 +22,21 @@ from parser_midi.parser_grammar import *
 
 acco_test = converter.parse('acco_love.mid')
 melody_test = converter.parse("melody_love.mid")
+acco_test.show("text")
+instrument.Piano().show("text")
 acco_test_processed = acco_test[0][4]
-melody_test_processed = stream.Stream()
-for nr in melody_test[0]:
-    if isinstance(nr, note.Note) or isinstance(nr, note.Rest):
-        melody_test_processed.insert(nr.offset, nr)
+#melody_test_processed = stream.Stream()
+#for nr in melody_test[0]:
+#    if isinstance(nr, note.Note) or isinstance(nr, note.Rest):
+#        melody_test_processed.insert(nr.offset, nr)
 #acco_test_processed.show("text")
 #melody_measures, acco_measures, measures = parser_Midi(melody_test_processed, acco_test_processed)
-melody_measures, acco_measures = parser_midi_improved(melody_test_processed, acco_test_processed)
+#melody_measures, acco_measures = parser_midi_improved(melody_test_processed, acco_test_processed)
 #print(acco_measures[2].offset)
-aaa = get_acco_grammars_improved(acco_measures)
-bbb = get_melody_grammars_improved(melody_measures)
-get_melody_musical_data_improved(bbb)
-get_acco_musical_data_improved(aaa)
+#aaa = get_acco_grammars_improved(acco_measures)
+#bbb = get_melody_grammars_improved(melody_measures)
+#get_melody_musical_data_improved(bbb)
+#get_acco_musical_data_improved(aaa)
 '''
 aaa = get_melody_grammars(melody_measures)
 bbb = get_acco_grammars(acco_measures)
