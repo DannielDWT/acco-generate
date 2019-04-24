@@ -20,12 +20,14 @@ from parser_midi.parser_grammar import *
 from parser_midi.parser_midi import *
 from parser_midi.parser_global import *
 from parser_midi.parser_music import *
+from music_style.instrument import *
 from music21 import *
 from model import *
 
 acco_test = converter.parse('acco_love.mid')
 melody_test = converter.parse("melody_love.mid")
-acco_test_processed = acco_test[0][4]
+acco1, acco2 = acco_test.getElementsByClass(stream.Part)
+acco_test_processed, acco3 = acco1.getElementsByClass(stream.Voice)
 melody_test_processed = stream.Stream()
 for nr in melody_test[0]:
     if isinstance(nr, note.Note) or isinstance(nr, note.Rest):
@@ -43,7 +45,7 @@ reshapor = Reshape((1, N_melody_values))
 LSTM_cell = LSTM(n_a, return_state=True)
 densor = Dense(N_acco_values, activation='softmax')
 
-model = tranning_model(30, n_a, N_melody_values, N_acco_values, reshapor, LSTM_cell, densor)
+model = tranning_model(50, n_a, N_melody_values, N_acco_values, reshapor, LSTM_cell, densor)
 opt = Adam(lr=0.01, beta_1=0.9, beta_2=0.999, decay=0.01)
 model.compile(optimizer=opt, loss='categorical_crossentropy', metrics=['accuracy'])
 m = 60
@@ -61,5 +63,21 @@ pred = inference_model.predict([x_initializer, a_initializer, c_initializer])
 indices = np.argmax(pred, axis = -1)
 indices = indices.squeeze()
 indices = indices.tolist()
-print(indices)
-unparse_data(indices, acco_indices_val)
+#print(indices)
+acco_corpus = unparse_data(indices, acco_indices_val)
+acco_stream = get_acco_musical_data_improved(acco_corpus)
+acco_stream.show("text")
+
+out_stream1 = stream.Part()
+out_stream = stream.Stream()
+out_stream1.insert(0.0, acco_stream)
+out_stream1.insert(0.0, acco3)
+out_stream.insert(out_stream1)
+out_stream.insert(acco2)
+out_stream = insert_instrument_piano(out_stream)
+
+mf = midi.translate.streamToMidiFile(out_stream)
+mf.open("my_music3.midi", 'wb')
+mf.write()
+#print("Your generated music is saved in output/my_music.midi")
+mf.close()

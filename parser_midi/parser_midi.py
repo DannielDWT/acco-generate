@@ -15,9 +15,8 @@
 from music21 import *
 from collections import defaultdict, OrderedDict
 from itertools import groupby, zip_longest
-from parser_midi.parser_music import *
 
-def parser_Midi(melody, accopaniment):
+def parser_midi(melody, accopaniment):
     '''
     :param melody: 主旋律音轨，理论上主要是Note类型，将其划为若干小节用dict存储
     :param accopaniment: 伴奏音轨，主要是chord类型，将其划为若干小节（与主旋律一样多）

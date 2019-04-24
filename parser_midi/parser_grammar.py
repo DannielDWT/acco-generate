@@ -19,7 +19,7 @@ from music21 import *
 import numpy as np
 
 def parse_data(melody_corpus, acco_corpus, melody_val_indices,
-                        acco_val_indices, m = 60, Tx = 30):
+                        acco_val_indices, Tx = 50, m = 60):
     '''
     :param melody_corpus:
     list类型，存储从头到尾的一个长串，依照时间顺序安排每个元素（主旋律）
@@ -38,8 +38,10 @@ def parse_data(melody_corpus, acco_corpus, melody_val_indices,
     '''
     #print(melody_corpus)
     #print(len(melody_corpus))
-    N_acco_values = len(set(acco_corpus))
-    N_melody_values = len(set(melody_corpus))
+    print(len(melody_val_indices))
+    print(len(set(melody_corpus)))
+    N_acco_values = len(acco_val_indices)
+    N_melody_values = len(melody_val_indices)
     np.random.seed()
     X = np.zeros((m, Tx, N_melody_values), dtype=np.bool)
     Y = np.zeros((m, Tx, N_acco_values), dtype=np.bool)
@@ -82,7 +84,9 @@ def parse_data(melody_corpus, acco_corpus, melody_val_indices,
     Y = np.swapaxes(Y, 0, 1)
     Y = Y.tolist()
     #print(X)
-    return np.asarray(X), np.asarray(Y), N_melody_values, N_acco_values
+    #print(N_melody_values)
+    #print(N_acco_values)
+    return np.asarray(X), np.asarray(Y)
 
 def unparse_data(predict_indices, acco_indices_val):
     '''
@@ -134,5 +138,19 @@ def parser_predict_data(melody_corpus, melody_val_indices):
         melody_data_idx = melody_val_indices[melody_corpus[idx]]
         X[0, idx, melody_data_idx] = 1
     return np.asarray(X)
+
+def parser_data_multi(melody_corpus_list, acco_corpus_list, melody_val_indices, acco_val_indices, Tx=50):
+    X = np.empty(shape=[0, Tx, len(melody_val_indices)])
+    Y = np.empty(shape=[Tx, 0, len(acco_val_indices)])
+    if len(melody_corpus_list) != acco_corpus_list:
+        pass
+    for i in range(len(melody_corpus_list)):
+        X_temp, Y_temp = parse_data(melody_corpus_list[i], acco_corpus_list[i], melody_val_indices, acco_val_indices,
+                                   Tx, m=60)
+        X = np.concatenate((X, X_temp))
+        Y = np.concatenate((Y, Y_temp), axis=1)
+    print(X.shape)
+    print(Y.shape)
+    return X, Y
 
 
