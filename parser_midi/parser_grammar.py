@@ -90,8 +90,6 @@ def parse_data(melody_corpus, acco_corpus, melody_val_indices,
 
 def unparse_data(predict_indices, acco_indices_val):
     '''
-    :param melody_corpus:
-    list类型，包含依顺序放置的主旋律元素，字符串表达
     :param predict_indices:
     list类型，模型预测产生的数据集对应的索引，
     :param melody_indices_val:
@@ -122,7 +120,7 @@ def unparse_data(predict_indices, acco_indices_val):
     print(acco_corpus)
     return acco_corpus
 
-def parser_predict_data(melody_corpus, melody_val_indices):
+def parser_predict_data(melody_corpus, melody_val_indices, Tx=50):
     '''
     :param melody_corpus:
     list类型，存放的从头到尾的主旋律的一个长字符串，依照时间顺序安排每个元素
@@ -131,7 +129,6 @@ def parser_predict_data(melody_corpus, melody_val_indices):
     :return:
     返回numpy.array类型，三维数组（1, Tx, n_melody_values)
     '''
-    Tx = len(melody_corpus)
     N_melody_values = len(set(melody_corpus))
     X = np.zeros((1, Tx, N_melody_values), dtype=np.bool)
     for idx in range(Tx):

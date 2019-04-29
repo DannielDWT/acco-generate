@@ -20,12 +20,17 @@ from parser_midi.parser_music import *
 from parser_midi.parser_global import *
 from parser_midi.parser_grammar import *
 from parser_midi.parser_song import *
+from parser_midi.parser_header import *
 
 acco_test = converter.parse('acco_love.mid')
 melody_test = converter.parse("melody_love.mid")
+print(len(melody_test))
+print(len(acco_test))
 acco1, acco2 = acco_test.getElementsByClass(stream.Part)
 acco_test_processed, acco3 = acco1.getElementsByClass(stream.Voice)
 melody_test_processed = stream.Stream()
+stream_key, stream_instrument, stream_timeSignature, stream_metronomeMark  = remove_header(melody_test[0])
+stream_key.show("text")
 for nr in melody_test[0]:
     if isinstance(nr, note.Note) or isinstance(nr, note.Rest):
         melody_test_processed.insert(nr.offset, nr)

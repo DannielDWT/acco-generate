@@ -9,7 +9,9 @@
 @time: 2019-04-01 18:20
 @desc:
 对midi文件进行预处理
-伴奏轨和主旋律轨分成各个小节并记录小节数
+有两种处理方法
+一种是将伴奏和主旋律音轨按小节进行处理
+另外一种则是将伴奏，主旋律音轨直接处理成一个长串
 '''
 
 from music21 import *
@@ -58,7 +60,7 @@ def parser_midi_improved(melody, accopaniment):
         melody与accopaniment应当是总长度(即offset)相同，但并不是一对一关系，我们假定对应关系为
         melody中的音符对应的是最接近于但是不超过的伴奏轨的音符或者和弦
         :return:
-        返回值为划分的小节（以及小节数目），划分的小节可供进一步处理以及小节数可以用于生成音乐的时候的时间偏移分析
+        返回值主旋律与伴奏长串
         melody_measuers:OrderDict类型，主旋律音符串
         acco_measuers:OrderDict类型，伴奏的音符串
         '''
