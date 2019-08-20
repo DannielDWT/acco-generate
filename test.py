@@ -24,6 +24,9 @@ from parser_midi.parser_header import *
 
 acco_test = converter.parse('acco_love.mid')
 melody_test = converter.parse("melody_love.mid")
+test = converter.parse("./dataset/kexibushini.mid")
+test2 = converter.parse("./dataset/tonghua.mid")
+test2.show("text")
 print(len(melody_test))
 print(len(acco_test))
 acco1, acco2 = acco_test.getElementsByClass(stream.Part)
