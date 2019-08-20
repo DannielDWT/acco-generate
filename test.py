@@ -14,6 +14,8 @@
 使用MusicScore3进行音轨分离提取
 '''
 
+
+'''
 from music21 import *
 from parser_midi.parser_midi import parser_midi
 from parser_midi.parser_music import *
@@ -44,4 +46,5 @@ acco_list.append(acco_test_processed)
 melody_corpus_list, acco_corpus_list, indices_melody_table, indices_acco_table, melody_indices_table, \
 acco_indices_table = parser_table(melody_list, acco_list)
 parser_data_multi(melody_corpus_list, acco_corpus_list, melody_indices_table, acco_indices_table)
+'''
 

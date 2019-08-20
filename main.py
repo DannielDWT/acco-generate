@@ -10,6 +10,8 @@
 @desc:
 '''
 
+
+'''
 from keras.models import *
 from keras.layers import *
 from keras.initializers import glorot_uniform
@@ -81,3 +83,4 @@ mf.open("my_music3.midi", 'wb')
 mf.write()
 #print("Your generated music is saved in output/my_music.midi")
 mf.close()
+'''

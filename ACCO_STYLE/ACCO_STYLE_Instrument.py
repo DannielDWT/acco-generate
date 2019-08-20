@@ -1,15 +1,13 @@
 #!/usr/bin/env python
 # encoding: utf-8
 '''
-@author: Danniel
+@author: 10858
 @license: (C) Copyright
-@contact: 1085837135@qq.com
+@contact: xxx@qq.com
 @software: PyCharm
-@file: instrument.py
-@time: 2019-04-15 16:39
+@file: ACCO_STYLE_Instrument.py
+@time: 2019-08-20 10:49
 @desc:
-该文件用于去除导入音轨的乐器等杂项便于解析
-同时提供了多种乐器风格的修改接口
 '''
 
 from music21 import *
@@ -76,4 +74,3 @@ if __name__ == '__main__':
     _C_key.show("text")
     _44_timeSignature.show("text")
     _100_metronomeMark.show("text")
-
