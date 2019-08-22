@@ -40,7 +40,7 @@ class CChord:
                       CChordEnum.G: G, CChordEnum.G7: G7, CChordEnum.AM: Am}
 
 if __name__ == "__main__":
-    note.Note(0).show("text")
+    #print(note.Note(0).pitch)
     CChord.C.show("text")
     print(CChord.C.pitches)
     print(CChord.CChordEnum.C * 8)

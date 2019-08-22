@@ -31,6 +31,42 @@ class SongParser:
     def __init__(self, filepath):
         pass
 
+    def parse_str(self, melody, acco):
+        '''
+        :param melody: 由midi文件解析出的主旋律音轨
+        :param acco: 由midi文件解析出的和弦音轨
+        :return: 一首歌组成的待处理文本样本X_str, 与标记y
+        该函数将音轨转化为标记y（数值数据)/类别， 而X_str则是相应的每小节对应的字符串，
+        保留文本数据之后可以应用于文本分类的特征提取算法
+        '''
+        X = []
+        y = []
+        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
+        melody_m = 0
+        for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
+            temp = ''
+            for n in group:
+                print(n[1].pitch)
+                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
+                    continue
+                temp = temp + " " + n[1].pitch
+            temp.strip()
+            X.append(temp)
+            melody_m += 1
+
+        acco_measures = OrderedDict()
+        offsetTuples_acco = [(int(n.offset / 4), ch) for ch in acco]
+        acco_m = 0
+        for key_x, group in groupby(offsetTuples_acco, lambda x: x[0]):
+            #if (group.length == 0):
+            if (group[0][1] not in CChord.CChord_To_Enum):
+                group[0][1] = CChord.Enum_To_CChord[random.randint(0, 6)]
+            y.append(CChord.CChord_To_Enum[group[0][1]])
+            #acco_measures[acco_m] = [n[1] for n in group]
+            acco_m += 1
+        return np.mat(X), np.mat(y).transpose()
+
+
     def parse_training(self, melody, acco):
         '''
         :param melody: 由midi文件解析出的主旋律音轨
@@ -43,7 +79,6 @@ class SongParser:
         '''
         X = []
         y = []
-        melody_measures = OrderedDict()
         melody_Tuples = [(int(n.offset / 4), n) for n in melody]
         melody_m = 0
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
