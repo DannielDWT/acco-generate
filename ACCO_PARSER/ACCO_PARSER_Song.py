@@ -48,11 +48,14 @@ class SongParser:
         melody_m = 0
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
             temp = np.zeros((1, CNotes.notes_num)).tolist()
+            len = len(group)
             for n in group:
                 print(n[1].pitch)
                 if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
                     continue
                 temp[CNotes.CNotes_To_Enum[n[1]]] += 1
+            #归一化，避免含音符较多的小节获得较大的优势
+            temp = [fre / len for fre in temp]
             X.append(temp)
             melody_m += 1
 
