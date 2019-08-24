@@ -5,22 +5,9 @@
 @license: (C) Copyright
 @contact: xxx@qq.com
 @software: PyCharm
-@file: ACCO_PARSER_Song.py
-@time: 2019-08-18 20:47
+@file: ACC_PARSER_SongWeight.py
+@time: 2019-08-24 9:58
 @desc:
-解析midi文件输出训练或预测数据
-X结构如下:
-    C D E F G A B
-    (样本数据为其出现次数,忽略空音符，从乐理上空音符不造成影响{考虑忽略头部尾部训练样本})
-y结构为:
-    chord
-    (数值为对应的在globaldata的数字)
-
-2019-08-23 1. 考虑加入多个音一组的作为特征，单音的影响可能会出问题
-            (考虑的解决方案之一，将所用七个音直接组成二二对(和三三对)作为特征（特征数过多，考虑直接从和弦本身组合入手））
-            14个特征(两两组合)，在出现的地方相应加权重
-            (解决方案之二，通过一个神经网络，两层隐层？神经网络去组织可能的组合）
-           2. 考虑加入时长特征，通过引入一个时长因子来使音的时长也体现出来，否则音长但音少的音极有可能被视为不重要音
 '''
 
 from music21 import *
@@ -32,46 +19,10 @@ from ACCO_GLOBALDATA.ACCO_GLOBALDATA_CNotes import CNotes
 from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
 
 
-class SongParser:
+class SongParser_weight:
 
     def __init__(self, filepath):
         pass
-
-    def parse_str(self, melody, acco):
-        '''
-        :param melody: 由midi文件解析出的主旋律音轨
-        :param acco: 由midi文件解析出的和弦音轨
-        :return: 一首歌组成的待处理文本样本X_str, 与标记y
-        该函数将音轨转化为标记y（数值数据)/类别， 而X_str则是相应的每小节对应的字符串，
-        保留文本数据之后可以应用于文本分类的特征提取算法
-        '''
-        X = []
-        y = []
-        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
-        melody_m = 0
-        for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
-            temp = ''
-            for n in group:
-                print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
-                    continue
-                temp = temp + " " + n[1].pitch
-            temp.strip()
-            X.append(temp)
-            melody_m += 1
-
-        acco_measures = OrderedDict()
-        offsetTuples_acco = [(int(n.offset / 4), ch) for ch in acco]
-        acco_m = 0
-        for key_x, group in groupby(offsetTuples_acco, lambda x: x[0]):
-            #if (group.length == 0):
-            if (group[0][1] not in CChord.CChord_To_Enum):
-                group[0][1] = CChord.Enum_To_CChord[random.randint(0, 6)]
-            y.append(CChord.CChord_To_Enum[group[0][1]])
-            #acco_measures[acco_m] = [n[1] for n in group]
-            acco_m += 1
-        return np.mat(X), np.mat(y).transpose()
-
 
     def parse_training(self, melody, acco):
         '''
@@ -79,7 +30,7 @@ class SongParser:
         :param acco:  由midi文件解析出的和弦音轨
         :return: 一首歌曲组成的训练样本X与y
         该函数用于解析midi的音轨获得训练样本数据，训练样本的特征结构如上注释
-        通过将音轨按小节分组，并统计小节中的各个音符出现的次数，空音符不考虑，进而组成样本数据X
+        通过将音轨按小节分组，并统计小节中的各个音符出现的次数, 每次出现在相应组合加上时值和权重乘积，空音符不考虑，进而组成样本数据X
         通过将和弦分组，每一小节中的和弦即为对应的输出。
         （目前存在的问题包括是否要考虑进常用的和弦变化规律以及是否考虑头部尾部C大调的特殊编配原则）
         '''
@@ -89,14 +40,16 @@ class SongParser:
         melody_m = 0
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
             temp = np.zeros((1, CNotes.notes_num)).tolist()
-            len = len(group)
+            sum = 0.0
             for n in group:
                 print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
+                if ((isinstance(n[1], note.Rest)) or (n[1] not in CNotes.CNotes_To_Enum_weight.keys())):
                     continue
-                temp[CNotes.CNotes_To_Enum[n[1]]] += 1
+                for col in CNotes.CNotes_To_Enum_weight[n[1]]:
+                    temp[col] += n[1].quarterLength * CNotes.quarter_weight
+                    sum += temp[col]
             #归一化，避免含音符较多的小节获得较大的优势
-            temp = [fre / len for fre in temp]
+            temp = [w / sum for w in temp]
             X.append(temp)
             melody_m += 1
 
@@ -119,15 +72,21 @@ class SongParser:
         解析用于预测的主旋律音轨，解析方法与上述一致
         '''
         X = []
+        y = []
         melody_Tuples = [(int(n.offset / 4), n) for n in melody]
         melody_m = 0
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
             temp = np.zeros((1, CNotes.notes_num)).tolist()
+            sum = 0.0
             for n in group:
                 print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
+                if ((isinstance(n[1], note.Rest)) or (n[1] not in CNotes.CNotes_To_Enum_weight.keys())):
                     continue
-                temp[CNotes.CNotes_To_Enum[n[1]]] += 1
+                for col in CNotes.CNotes_To_Enum_weight[n[1]]:
+                    temp[col] += n[1].quarterLength * CNotes.quarter_weight
+                    sum += temp[col]
+            #归一化，避免含音符较多的小节获得较大的优势
+            temp = [w / sum for w in temp]
             X.append(temp)
             melody_m += 1
         return np.mat(X)
