@@ -25,6 +25,7 @@ class multinomiaModel:
     def __init__(self):
         self.__model = MLPClassifier(hidden_layer_sizes=(10, 10), activation='relu', solver='lbfgs',
                                      alpha=1e-5, max_iter=200, random_state=33)
+        #隐层个数可以考虑7  * 7 或者单层14或49， 如果是组合特征的话 单层考虑7或者10或者14
         #self.__ss = StandardScaler()
 
     def train(self, X, y):
