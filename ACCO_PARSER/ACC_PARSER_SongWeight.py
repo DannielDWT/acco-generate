@@ -39,7 +39,7 @@ class SongParser_weight:
         melody_Tuples = [(int(n.offset / 4), n) for n in melody]
         melody_m = 0
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
-            temp = np.zeros((1, CNotes.notes_num)).tolist()
+            temp = np.zeros((1, CNotes.notes_num_weight)).tolist()
             sum = 0.0
             for n in group:
                 print(n[1].pitch)
