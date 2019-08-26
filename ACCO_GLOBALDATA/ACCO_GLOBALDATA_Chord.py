@@ -39,6 +39,14 @@ class CChord:
     Enum_To_CChord = {CChordEnum.C: C, CChordEnum.DM: Dm, CChordEnum.EM: Em, CChordEnum.F: F,
                       CChordEnum.G: G, CChordEnum.G7: G7, CChordEnum.AM: Am}
 
+    Enum_To_Column_weight = {CChordEnum.C: [0, 2, 8],
+                             CChordEnum.F: [1, 3, 11],
+                             CChordEnum.EM: [8, 13, 10],
+                             CChordEnum.AM: [0, 3, 9],
+                             CChordEnum.DM: [4, 6, 11],
+                             CChordEnum.G: [5, 7, 13],
+                             CChordEnum.G7: [4, 5, 7, 12, 13]}
+
 if __name__ == "__main__":
     #print(note.Note(0).pitch)
     CChord.C.show("text")
@@ -56,12 +64,19 @@ if __name__ == "__main__":
     out_stream.insert(9.0, note.Note('A'))
     out_stream.insert(10.0, note.Note('B'))
     out_stream.insert(11.0, note.Note(0))
-    out_stream.show("text")
+    #out_stream.show("text")
     mf = midi.translate.streamToMidiFile(out_stream)
     mf.open("my_music_chord_test.midi", 'wb')
     mf.write()
     #print("Your generated music is saved in output/my_music.midi")
     mf.close()
 
-    pingfan = converter.parse('../dataset/yujian.mid')
-    pingfan[1].show("text")
+    pingfan = converter.parse('../ACCO_DATASET/yujian.mid')
+    for nr in pingfan[1]:
+        if isinstance(nr, chord.Chord):
+            print(nr.quarterLength)
+    pingfan.show("text")
+
+    result = {}
+    result['c'] = 1
+    print(result)

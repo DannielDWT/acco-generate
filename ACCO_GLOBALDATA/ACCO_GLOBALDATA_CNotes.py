@@ -15,7 +15,7 @@ from music21 import *
 class CNotes:
     notes_num = 7
     notes_num_weight = 14
-    quarter_weight = 10
+    quarter_weight = 5
     class CNotesEnum:
         C = 0
         D = 1
