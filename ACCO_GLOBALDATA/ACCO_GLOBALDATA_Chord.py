@@ -47,6 +47,20 @@ class CChord:
                              CChordEnum.G: [5, 7, 13],
                              CChordEnum.G7: [4, 5, 7, 12, 13]}
 
+    brokenChord_To_Enum = {'C3 G3 C4 G3 E4 G3 C4 G3': CChordEnum.C,
+                           'A2 A3 C4 A3 E4 A3 C4 A3': CChordEnum.AM,
+                           'E3 G3 B3 G3 E4 G3 B3 G3': CChordEnum.EM,
+                           'D3 A3 D4 A3 F4 A3 D4 A3': CChordEnum.DM,
+                           'G2 G3 B3 G3 G4 G3 B3 G3': CChordEnum.G,
+                           'F3 A3 C4 A3 F4 A3 C4 A3': CChordEnum.F}
+
+    Enum_To_brokenChord = {CChordEnum.C: 'C3 G3 C4 G3 E4 G3 C4 G3',
+                           CChordEnum.AM: 'A2 A3 C4 A3 E4 A3 C4 A3',
+                           CChordEnum.EM: 'E3 G3 B3 G3 E4 G3 B3 G3',
+                           CChordEnum.DM: 'D3 A3 D4 A3 F4 A3 D4 A3',
+                           CChordEnum.G: 'G2 G3 B3 G3 G4 G3 B3 G3',
+                           CChordEnum.F: 'F3 A3 C4 A3 F4 A3 C4 A3'}
+
 if __name__ == "__main__":
     #print(note.Note(0).pitch)
     CChord.C.show("text")
@@ -71,12 +85,8 @@ if __name__ == "__main__":
     #print("Your generated music is saved in output/my_music.midi")
     mf.close()
 
-    pingfan = converter.parse('../ACCO_DATASET/yujian.mid')
-    for nr in pingfan[1]:
-        if isinstance(nr, chord.Chord):
-            print(nr.quarterLength)
-    pingfan.show("text")
-
-    result = {}
-    result['c'] = 1
-    print(result)
+    pingfan = converter.parse('../ACCO_DATASET/train/houlai.mid')
+    for n in pingfan[1]:
+        if isinstance(n, note.Note):
+            print(n.quarterLength)
+    #pingfan.show("text")

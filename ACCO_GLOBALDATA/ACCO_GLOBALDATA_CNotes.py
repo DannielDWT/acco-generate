@@ -24,18 +24,18 @@ class CNotes:
         G = 4
         A = 5
         B = 6
-    CNotes_To_Enum = {note.Note('C'):CNotesEnum.C, note.Note('D'):CNotesEnum.D, note.Note('E'):CNotesEnum.E,
-                      note.Note('F'):CNotesEnum.F, note.Note('G'):CNotesEnum.G, note.Note('A'):CNotesEnum.A,
-                      note.Note('B'):CNotesEnum.B}
-    Enum_To_CNotes = {CNotesEnum.C: note.Note('C'), CNotesEnum.D: note.Note('D'), CNotesEnum.E: note.Note('E'),
-                      CNotesEnum.F: note.Note('F'), CNotesEnum.G: note.Note('G'), CNotesEnum.A: note.Note('A'),
-                      CNotesEnum.B: note.Note('B')}
+    CNotes_To_Enum = {'C':CNotesEnum.C, 'D':CNotesEnum.D, 'E':CNotesEnum.E,
+                      'F':CNotesEnum.F, 'G':CNotesEnum.G, 'A':CNotesEnum.A,
+                      'B':CNotesEnum.B}
+    Enum_To_CNotes = {CNotesEnum.C: 'C', CNotesEnum.D: 'D', CNotesEnum.E: 'E',
+                      CNotesEnum.F: 'F', CNotesEnum.G: 'G', CNotesEnum.A: 'A',
+                      CNotesEnum.B: 'B'}
 
-    CNotes_To_Enum_weight = {note.Note('C'):[0, 1, 2, 3],
-                             note.Note('D'):[4, 5, 6, 7],
-                             note.Note('E'):[0, 8, 9, 10],
-                             note.Note('F'):[1, 4, 11, 12],
-                             note.Note('G'):[2, 5, 8, 13],
-                             note.Note('A'):[3, 6, 9, 11],
-                             note.Note('B'):[7, 10, 12, 13]}
+    CNotes_To_Enum_weight = {'C':[0, 1, 2, 3],
+                             'D':[4, 5, 6, 7],
+                             'E':[0, 8, 9, 10],
+                             'F':[1, 4, 11, 12],
+                             'G':[2, 5, 8, 13],
+                             'A':[3, 6, 9, 11],
+                             'B':[7, 10, 12, 13]}
 
