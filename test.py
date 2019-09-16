@@ -15,36 +15,78 @@
 '''
 
 
-'''
 from music21 import *
-from parser_midi.parser_midi import parser_midi
-from parser_midi.parser_music import *
-from parser_midi.parser_global import *
-from parser_midi.parser_grammar import *
-from parser_midi.parser_song import *
-from parser_midi.parser_header import *
+from ACCO_PARSER.ACC_PARSER_SongWeight import SongParser_weight
+from ACCO_PARSER.ACCO_PARSER_Song import SongParser
+from ACCO_GLOBALDATA.ACCO_GLOBALDATA_CNotes import CNotes
+from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
+from ACCO_MODEL.ACCO_MODEL_SVMModel import SVCModel
+from ACCO_MODEL.ACCO_MODEL_DescionTree import DecisionTreeModel
+from ACCO_MODEL.ACCO_MODEL_RandomForestModel import randomForstModel
+from pandas.api.types import CategoricalDtype
+from ACCO_MODEL.ACCO_MODEL_MLPClassifierModel import MLPModel
+from sklearn import linear_model
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
 
-acco_test = converter.parse('acco_love.mid')
-melody_test = converter.parse("melody_love.mid")
-test = converter.parse("./dataset/kexibushini.mid")
-test2 = converter.parse("./dataset/tonghua.mid")
-test2.show("text")
-print(len(melody_test))
-print(len(acco_test))
-acco1, acco2 = acco_test.getElementsByClass(stream.Part)
-acco_test_processed, acco3 = acco1.getElementsByClass(stream.Voice)
-melody_test_processed = stream.Stream()
-stream_key, stream_instrument, stream_timeSignature, stream_metronomeMark  = remove_header(melody_test[0])
-stream_key.show("text")
-for nr in melody_test[0]:
-    if isinstance(nr, note.Note) or isinstance(nr, note.Rest):
-        melody_test_processed.insert(nr.offset, nr)
-melody_list = []
-acco_list = []
-melody_list.append(melody_test_processed)
-acco_list.append(acco_test_processed)
-melody_corpus_list, acco_corpus_list, indices_melody_table, indices_acco_table, melody_indices_table, \
-acco_indices_table = parser_table(melody_list, acco_list)
-parser_data_multi(melody_corpus_list, acco_corpus_list, melody_indices_table, acco_indices_table)
-'''
+
+training_root = './ACCO_DATASET/training'
+X = np.empty(shape=[0, 7])
+y = np.empty(shape=[0, 1])
+parser = SongParser()
+filelist = os.listdir(training_root)
+#print(filelist)
+for file in filelist:
+        print(file)
+        melody, acco = parser.parser_midi_training(os.path.join(training_root, file))
+        #melody2 = parser.remove_header(melody)
+        melody.show('text')
+        acco = parser.remove_header(acco)
+        #acco.show('text')
+        X_one, y_one = parser.parseSong(melody, acco)
+        X, y = parser.training_join(X, X_one, y, y_one)
+
+#print(X.shape)
+#print(y.shape)
+#print(X)
+#print(y)
+#print(X)
+#print(y)
+#model = linear_model.LogisticRegression()
+model = DecisionTreeModel()
+training_data = np.hstack((X, y))
+df = pd.DataFrame(training_data)
+df.columns = ['head', 'tail', 'chord_inside', 'beat', 'longest', 'fre', 'first', 'chord']
+#df.to_csv('traing_data.csv')
+cols = ['head', 'tail', 'chord_inside', 'beat', 'longest', 'fre', 'first']
+for col in cols:
+        df[col] = df[col].astype(int)
+        df[col] = df[col].astype(str)
+#df['chord_inside'] = df['chord_inside'].astype(CategoricalDtype(categories=[0, 1, 2, 3, 4, 5, 6]))
+#df['beat'] = df['beat'].astype(CategoricalDtype(categories=[0, 1, 2, 3, 4, 5, 6]))
+#df['longest'] = df['longest'].astype(CategoricalDtype(categories=[0, 1, 2, 3, 4, 5, 6]))
+#df['fre'] = df['fre'].astype(CategoricalDtype(categories=[0, 1, 2, 3, 4, 5, 6]))
+#df['first'] = df['first'].astype(CategoricalDtype(categories=[0, 1, 2, 3, 4, 5, 6]))
+#print(df.head())
+train_x = pd.get_dummies(df[cols])
+#print(train_x.head())
+#print(train_x.shape)
+label = pd.DataFrame(y)
+label.columns = ['chord']
+label['chord'] = label['chord'].astype(int)
+#print(label)
+final = pd.concat([train_x, label], axis=1)
+Y = final['chord'].values
+XX = final.drop('chord', axis=1).values
+loss = model.train(XX, y)
+#print(model.coef_)
+#print(final.head())
+#corr = final.corr()
+#df2 = pd.DataFrame(df.corr())
+print(loss)
+
+
+
 

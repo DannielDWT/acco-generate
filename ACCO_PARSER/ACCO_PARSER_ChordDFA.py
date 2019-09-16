@@ -9,7 +9,7 @@
 @time: 2019-08-24 11:52
 @desc:
 '''
-
+'''
 from music21 import *
 import numpy as np
 import random
@@ -20,13 +20,13 @@ from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
 from enum import IntEnum, unique
 
 class DFA_state(IntEnum):
-    '''
+    
     该枚举类用于表示有限状态机里面的各个状态
     其中命名规则为：
     C1_1,第一个1表示常见套路第几，第二个表示在套路中的位置
     C2o3_2中间有o表示两个套路共同使用一个状态
     C1_5_1中间下划线表示连续5个套路共用该状态
-    '''
+    
     READY = -1
     C1_5_1 = 0
     F1_2 = 1
@@ -45,12 +45,12 @@ class DFA_state(IntEnum):
     G5_7 = 14
 
 class ChordDFA:
-    '''
+    
     该类用于转换当前状态，同时返回相应的各个列应该增加的权重
     从而使得预测时某些列权重更大，更倾向于预测为某一类和弦
     该类接受预测时的当前预测值作为输入，并返回一个字典，索引为列，值为权重
     权重由 总权重 与位置因子构成
-    '''
+    
 
     def __init__(self):
         self.__state = DFA_state.READY
@@ -273,3 +273,4 @@ class ChordDFA:
         for col in cols:
             result[col] = self.__totalWeight / self.__FIFTH * 7
         return result
+'''

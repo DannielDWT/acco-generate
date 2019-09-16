@@ -21,6 +21,8 @@ y结构为:
             14个特征(两两组合)，在出现的地方相应加权重
             (解决方案之二，通过一个神经网络，两层隐层？神经网络去组织可能的组合）
            2. 考虑加入时长特征，通过引入一个时长因子来使音的时长也体现出来，否则音长但音少的音极有可能被视为不重要音
+2019-09-16 1. 采用新的解析方法，特征为 歌曲头部， 歌曲尾部， 和弦内音， 强拍音， 最长音， 频次最高音， 小节第一个音
+           2. 删除或将过往解析方法移到storageParser
 '''
 
 from music21 import *
@@ -34,103 +36,9 @@ from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
 
 class SongParser:
 
-    def __init__(self, filepath):
+    def __init__(self):
         pass
 
-    def parse_str(self, melody, acco):
-        '''
-        :param melody: 由midi文件解析出的主旋律音轨
-        :param acco: 由midi文件解析出的和弦音轨
-        :return: 一首歌组成的待处理文本样本X_str, 与标记y
-        该函数将音轨转化为标记y（数值数据)/类别， 而X_str则是相应的每小节对应的字符串，
-        保留文本数据之后可以应用于文本分类的特征提取算法
-        '''
-        X = []
-        y = []
-        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
-        melody_m = 0
-        for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
-            temp = ''
-            for n in group:
-                print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
-                    continue
-                temp = temp + " " + n[1].pitch
-            temp.strip()
-            X.append(temp)
-            melody_m += 1
-
-        acco_measures = OrderedDict()
-        offsetTuples_acco = [(int(n.offset / 4), ch) for ch in acco]
-        acco_m = 0
-        for key_x, group in groupby(offsetTuples_acco, lambda x: x[0]):
-            #if (group.length == 0):
-            if (group[0][1] not in CChord.CChord_To_Enum):
-                group[0][1] = CChord.Enum_To_CChord[random.randint(0, 6)]
-            y.append(CChord.CChord_To_Enum[group[0][1]])
-            #acco_measures[acco_m] = [n[1] for n in group]
-            acco_m += 1
-        return np.mat(X), np.mat(y).transpose()
-
-
-    def parse_training(self, melody, acco):
-        '''
-        :param melody: 由midi文件解析出的主旋律音轨
-        :param acco:  由midi文件解析出的和弦音轨
-        :return: 一首歌曲组成的训练样本X与y
-        该函数用于解析midi的音轨获得训练样本数据，训练样本的特征结构如上注释
-        通过将音轨按小节分组，并统计小节中的各个音符出现的次数，空音符不考虑，进而组成样本数据X
-        通过将和弦分组，每一小节中的和弦即为对应的输出。
-        （目前存在的问题包括是否要考虑进常用的和弦变化规律以及是否考虑头部尾部C大调的特殊编配原则）
-        '''
-        X = []
-        y = []
-        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
-        melody_m = 0
-        for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
-            temp = np.zeros((1, CNotes.notes_num)).tolist()
-            sum = 0.0
-            for n in group:
-                print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
-                    continue
-                temp[CNotes.CNotes_To_Enum[n[1]]] += n[1].quarterlength * CNotes.quarter_weight
-                sum += temp[CNotes.CNotes_To_Enum[n[1]]]
-            #归一化，避免含音符较多的小节获得较大的优势
-            temp = [fre / sum for fre in temp]
-            X.append(temp)
-            melody_m += 1
-
-        acco_measures = OrderedDict()
-        offsetTuples_acco = [(int(n.offset / 4), ch) for ch in acco]
-        acco_m = 0
-        for key_x, group in groupby(offsetTuples_acco, lambda x: x[0]):
-            #if (group.length == 0):
-            if (group[0][1] not in CChord.CChord_To_Enum):
-                group[0][1] = CChord.Enum_To_CChord[random.randint(0, 6)]
-            y.append(CChord.CChord_To_Enum[group[0][1]])
-            #acco_measures[acco_m] = [n[1] for n in group]
-            acco_m += 1
-        return np.mat(X), np.mat(y).transpose()
-    def parse_predict(self, melody):
-        '''
-        :param melody: 预测样本的主旋律
-        :return: 返回该首歌解析获得的预测样本
-        解析用于预测的主旋律音轨，解析方法与上述一致
-        '''
-        X = []
-        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
-        melody_m = 0
-        for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
-            temp = np.zeros((1, CNotes.notes_num)).tolist()
-            for n in group:
-                print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or n[1].pitch not in CNotes.CNotes_To_Enum):
-                    continue
-                temp[CNotes.CNotes_To_Enum[n[1]]] += 1
-            X.append(temp)
-            melody_m += 1
-        return np.mat(X)
     def unparse(self, y):
         '''
         :param y: 预测获得的m * 1维矩阵
@@ -138,12 +46,17 @@ class SongParser:
         '''
         acco = stream.Stream()
         offset = 0.0
+        index = 0
         for value in y:
+            if index in self.predict_remove:
+                self.predict_remove.remove(index)
+                index += 1
+                offset += 4.0
+                continue
             acco.insert(offset, CChord.Enum_To_CChord(value))
             offset += 4.0
+            index += 1
         return acco
-
-
     def parser_header(self, melody):
         '''
         :param melody: 主旋律音轨
@@ -189,47 +102,87 @@ class SongParser:
         X = np.concatenate([X1, X2])
         y = np.concatenate([y1, y2])
         return X, y
-
-
-    def parse_brokenChord_training(self, melody, acco):
+    def containsChord(self, notesStr):
         '''
-        :param melody: 由midi文件解析出的主旋律音轨
-        :param acco:  由midi文件解析出的和弦音轨
-        :return: 一首歌曲组成的训练样本X与y
-        该函数用于解析midi的音轨获得训练样本数据，训练样本的特征结构如上注释
-        通过将音轨按小节分组，并统计小节中的各个音符出现的次数，空音符不考虑，进而组成样本数据X
-        通过将和弦分组，每一小节中的和弦即为对应的输出。
-        （目前存在的问题包括是否要考虑进常用的和弦变化规律以及是否考虑头部尾部C大调的特殊编配原则）
+        判断小节内是否包含某个和弦的组成音
+        :param chordStr:
+        :return:
+        '''
+        if ('C' in notesStr and 'E' in notesStr and 'G' in notesStr):
+            return 1
+        elif ('D' in notesStr and 'F' in notesStr and 'A' in notesStr):
+            return 2
+        elif ('E' in notesStr and 'G' in notesStr and 'B' in notesStr):
+            return 3
+        elif ('F' in notesStr and 'A' in notesStr and 'C' in notesStr):
+            return 4
+        elif ('G' in notesStr and 'B' in notesStr and 'D' in notesStr):
+            return 5
+        elif ('A' in notesStr and 'C' in notesStr and 'E' in notesStr):
+            return 6
+        else:
+            return 0
+    def parseSong(self, melody, acco):
+        '''
+        将歌曲解析成训练数据
+        特征为： 是否是第一小节 是否是最后一节  和弦内音对应的和弦 强拍音 小节最长音 频数最大音
+        :param melody:
+        :param acco:
+        :return: X, y
         '''
         X = []
         y = []
-        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
         melody_m = 0
+        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
+        acco_Tuples = [(int(ch.offset / 4), ch) for ch in acco]
+        head = 0
+        tail = melody_Tuples[len(melody_Tuples) - 1][0]
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
-            temp = np.zeros((1, CNotes.notes_num_weight)).flatten().tolist()
-            sum = 0.0
+            temp = np.zeros((1, CNotes.attr_num)).astype(np.int32).flatten().tolist()
+            if key_x == head:
+                temp[0] = 1
+            if key_x == tail:
+                temp[1] = 1
+            beatStrengthNotes = {}
+            longestNotes = {}
+            freNotes = {}
+            notesStr = ''
+            first = True
             for n in group:
-                #print(n[1].pitch)
-                if (isinstance(n[1], note.Rest) or (n[1].name not in CNotes.CNotes_To_Enum.keys())):
+                if (not isinstance(n[1], note.Note)):
                     continue
-                temp[CNotes.CNotes_To_Enum[n[1]].name] += n[1].quarterLength * CNotes.quarter_weight
-                sum += temp[CNotes.CNotes_To_Enum[n[1]].name]
-            # 归一化，避免含音符较多的小节获得较大的优势
-            temp = [fre / sum for fre in temp]
-            X.append(temp)
+                if (isinstance(n[1], note.Rest) or n[1].name not in CNotes.CNotes_To_Enum.keys()):
+                    continue
+                if (first):
+                    temp[6] = CNotes.CNotes_To_Enum[n[1].name]
+                    first = False
+                if (n[1].name not in beatStrengthNotes.keys() or n[1].beatStrength > beatStrengthNotes[n[1].name]):
+                    #print(n[1].name)
+                    beatStrengthNotes[n[1].name] = n[1].beatStrength
+                if (n[1].name not in longestNotes.keys() or n[1].quarterLength > beatStrengthNotes[n[1].name]):
+                    longestNotes[n[1].name] = n[1].quarterLength
+                if (n[1].name not in freNotes.keys()):
+                    freNotes[n[1].name] = 1
+                else:
+                    freNotes[n[1].name] += 1
+                notesStr += n[1].name
+            #print(notesStr)
+            #print(self.containsChord(notesStr))
+            temp[2] = self.containsChord(notesStr)
+            #print(beatStrengthNotes)
+            temp[3] = CNotes.CNotes_To_Enum[max(beatStrengthNotes, key=beatStrengthNotes.get)]
+            temp[4] = CNotes.CNotes_To_Enum[max(longestNotes, key=longestNotes.get)]
+            temp[5] = CNotes.CNotes_To_Enum[max(freNotes, key=freNotes.get)]
+            #print(temp)
+            #temp = [fre / sum for fre in temp]
             melody_m += 1
+            X.append(temp)
 
-        acco_measures = OrderedDict()
-        offsetTuples_acco = [(int(n.offset / 4), ch) for ch in acco]
-        acco_m = 0
-        acco_measures = OrderedDict()
         offsetTuples_acco = [(int(ch.offset / 4), ch) for ch in acco]
         acco_m = 0
+        #print(melody_m)
         for key_x, group in groupby(offsetTuples_acco, lambda x: x[0]):
-            # if (group.length == 0):
-            # print('in')
             if (acco_m > melody_m):
-                # print('in2')
                 break
             brokenChord_str = ''
             for n in group:
@@ -239,12 +192,66 @@ class SongParser:
                     temp = str(n[1].pitch) + ' '
                 brokenChord_str += temp
             brokenChord_str = brokenChord_str.strip(' ')
-            # print(brokenChord_str)
             if (brokenChord_str not in CChord.brokenChord_To_Enum.keys() or brokenChord_str == ''):
+                #print('in' + str(acco_m))
                 X = np.delete(X, acco_m, 0)
                 melody_m -= 1
-                acco_m += 1
                 continue
             y.append(CChord.brokenChord_To_Enum[brokenChord_str])
+            #print(str(acco_m) + 'and' + str(melody_m))
             acco_m += 1
         return np.mat(X), np.mat(y).transpose()
+    def parseSong_predict(self, melody):
+        '''
+        解析预测数据，单首歌曲，返回相应的训练数据X
+        :param melody:
+        :return:
+        '''
+        X = []
+        melody_m = 0
+        melody_Tuples = [(int(n.offset / 4), n) for n in melody]
+        self.predict_remove = []
+        head = 0
+        tail = melody_Tuples[len(melody_Tuples) - 1][0]
+        for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
+            temp = np.zeros((1, CNotes.attr_num)).astype(np.int32).flatten().tolist()
+            if key_x == head:
+                temp[0] = 1
+            if key_x == tail:
+                temp[1] = 1
+            beatStrengthNotes = {}
+            longestNotes = {}
+            freNotes = {}
+            notesStr = ''
+            first = True
+            for n in group:
+                if (not isinstance(n[1], note.Note)):
+                    continue
+                if (isinstance(n[1], note.Rest) or n[1].name not in CNotes.CNotes_To_Enum.keys()):
+                    continue
+                if (first):
+                    temp[6] = CNotes.CNotes_To_Enum[n[1].name]
+                    first = False
+                if (n[1].name not in beatStrengthNotes.keys() or n[1].beatStrength > beatStrengthNotes[n[1].name]):
+                    #print(n[1].name)
+                    beatStrengthNotes[n[1].name] = n[1].beatStrength
+                if (n[1].name not in longestNotes.keys() or n[1].quarterLength > beatStrengthNotes[n[1].name]):
+                    longestNotes[n[1].name] = n[1].quarterLength
+                if (n[1].name not in freNotes.keys()):
+                    freNotes[n[1].name] = 1
+                else:
+                    freNotes[n[1].name] += 1
+                notesStr += n[1].name
+            if notesStr == '':
+                self.predict_remove.append(key_x)
+                continue
+            temp[2] = self.containsChord(notesStr)
+            temp[3] = CNotes.CNotes_To_Enum[max(beatStrengthNotes, key=beatStrengthNotes.get)]
+            temp[4] = CNotes.CNotes_To_Enum[max(longestNotes, key=longestNotes.get)]
+            temp[5] = CNotes.CNotes_To_Enum[max(freNotes, key=freNotes.get)]
+            melody_m += 1
+            X.append(temp)
+        return np.mat(X)
+
+
+

@@ -64,3 +64,44 @@ def predict_model(reshapor, LSTM_cell, densor, Tx,  n_melody_values, n_acco_valu
 
     return inference_model
 '''
+
+'''
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score
+import numpy as np
+from sklearn.metrics import classification_report, mean_absolute_error, mean_squared_error
+# 该标准化是对列数据/特征进行归一/标准化
+#from sklearn.preprocessing import StandardScaler
+
+class MLPModel:
+
+    建立神经网络（多层感知机）分类模型，用于训练和预测
+
+
+    def __init__(self):
+        self.__model = MLPClassifier(hidden_layer_sizes=(10, 10), activation='relu', solver='lbfgs',
+                                     alpha=1e-5, max_iter=190, random_state=33)
+        #隐层个数可以考虑7  * 7 或者单层14或49， 如果是组合特征的话 单层考虑7或者10或者14
+        #self.__ss = StandardScaler()
+
+    def train(self, X, y):
+        #ss = StandardScaler()
+        #X_processed = ss.fit_transform(X)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=33)
+        self.__model.fit(X_train, y_train)
+        training_loss = self.__model.score(X_train, y_train)
+        loss = self.__model.score(X_test, y_test)
+        #print(X_test)
+        #print(y_test)
+        #print(self.__model.predict(X_test))
+        score = accuracy_score(y_test, self.__model.predict(X_test))
+        #predict_y = self.__model.predict(X_test)
+        #mae = mean_absolute_error(predict_y, y_test)
+        #mse = mean_squared_error(predict_y, y_test)
+        return loss
+
+    def predict(self, X):
+        predict_y = self.__model.predict(X)
+        return np.mat(predict_y)
+'''

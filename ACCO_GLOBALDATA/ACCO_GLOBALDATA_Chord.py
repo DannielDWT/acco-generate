@@ -25,6 +25,7 @@ class CChord:
         G7 = 6
         #E7 = 7
 
+
     C = chord.Chord([note.Note('C'), note.Note('F'), note.Note('G')], duration=duration.Duration(4.0))
     Dm = chord.Chord([2, 4, 6], duration=duration.Duration(4.0))
     Em = chord.Chord([3, 5, 7], duration=duration.Duration(4.0))
@@ -47,6 +48,15 @@ class CChord:
                              CChordEnum.G: [5, 7, 13],
                              CChordEnum.G7: [4, 5, 7, 12, 13]}
 
+    '''
+    Enum_To_Column_weight = {CChordEnum.C: [0],
+                             CChordEnum.F: [1],
+                             CChordEnum.EM: [2],
+                             CChordEnum.AM: [3],
+                             CChordEnum.DM: [4],
+                             CChordEnum.G: [5],
+                             CChordEnum.G7: [6]}
+    '''
     brokenChord_To_Enum = {'C3 G3 C4 G3 E4 G3 C4 G3': CChordEnum.C,
                            'A2 A3 C4 A3 E4 A3 C4 A3': CChordEnum.AM,
                            'E3 G3 B3 G3 E4 G3 B3 G3': CChordEnum.EM,
@@ -86,7 +96,9 @@ if __name__ == "__main__":
     mf.close()
 
     pingfan = converter.parse('../ACCO_DATASET/train/houlai.mid')
-    for n in pingfan[1]:
+    pingfan.show('text')
+    for n in pingfan[0]:
         if isinstance(n, note.Note):
-            print(n.quarterLength)
+            print(n.pitch)
+            print(n.beatStrength)
     #pingfan.show("text")

@@ -16,13 +16,13 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.preprocessing import StandardScaler
 
-class randomForstModel:
+class SVCModel:
     '''
     建立随机森林模型，用于训练和预测
     '''
 
     def __init__(self):
-        self.__model = SVC(kernel='rbf',random_state=33,gamma=0.10,C=10.0)
+        self.__model = SVC(C=30, kernel='rbf')
         #self.__ss = StandardScaler()
 
     def train(self, X, y):
