@@ -2,24 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34000ff3-de79-4ad6-9601-9fde84f85930" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_DescionTree.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/grid_search.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_GLOBALDATA/my_music_chord_test.midi" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_BayesModel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_MLPClassifierModel.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_RandomForestModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_RandomForestModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_SVMModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_SVMModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_StorageModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_StorageModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_TF_IDF.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_ChordDFA.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_ChordDFA.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_StorageParser.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_StorageParser.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ACCO_PARSER/ACC_PARSER_SongWeight.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -84,7 +67,7 @@
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="638">
-              <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+              <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
               <folding>
                 <element signature="e#175#196#0" expanded="true" />
               </folding>
@@ -114,7 +97,7 @@
         <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="214">
-              <caret line="123" column="20" lean-forward="true" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
+              <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
               <folding>
                 <element signature="e#583#604#0" expanded="true" />
                 <element signature="e#1047#1518#0" />
@@ -135,7 +118,7 @@
         <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1127">
-              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+              <caret line="49" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -153,7 +136,7 @@
         <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1340">
-              <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+              <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -216,7 +199,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="-10" />
     <option name="width" value="1750" />
     <option name="height" value="980" />
@@ -234,11 +217,6 @@
             <path>
               <item name="acco-generate" type="b2602c69:ProjectViewProjectNode" />
               <item name="acco-generate" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="acco-generate" type="b2602c69:ProjectViewProjectNode" />
-              <item name="acco-generate" type="462c0819:PsiDirectoryNode" />
-              <item name="ACCO_MODEL" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -451,12 +429,12 @@
       <workItem from="1568463281474" duration="4382000" />
       <workItem from="1568510660240" duration="20159000" />
       <workItem from="1568549532917" duration="9445000" />
-      <workItem from="1568598697617" duration="3065000" />
+      <workItem from="1568598697617" duration="3484000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277162000" />
+    <option name="totallyTimeSpent" value="277581000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -468,8 +446,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22989276" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -683,7 +660,7 @@
     <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="214">
-          <caret line="123" column="20" lean-forward="true" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
+          <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
           <folding>
             <element signature="e#583#604#0" expanded="true" />
             <element signature="e#1047#1518#0" />
@@ -716,14 +693,14 @@
     <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1340">
-          <caret line="35" column="25" lean-forward="true" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1127">
-          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
@@ -744,7 +721,7 @@
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="638">
-          <caret line="50" column="28" lean-forward="true" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+          <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
           <folding>
             <element signature="e#175#196#0" expanded="true" />
           </folding>
