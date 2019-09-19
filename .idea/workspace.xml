@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="34000ff3-de79-4ad6-9601-9fde84f85930" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py" beforeDir="false" afterPath="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/traing_data.csv" beforeDir="false" afterPath="$PROJECT_DIR$/traing_data.csv" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,9 +18,9 @@
     <SUITE FILE_PATH="coverage/acco_generate$grid_search.coverage" NAME="grid_search Coverage Results" MODIFIED="1568557791430" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/acco_generate$main.coverage" NAME="main Coverage Results" MODIFIED="1568599934174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/acco_generate$parser_music.coverage" NAME="parser_music Coverage Results" MODIFIED="1554129170826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/parser" />
-    <SUITE FILE_PATH="coverage/acco_generate$test.coverage" NAME="test Coverage Results" MODIFIED="1568557933376" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/acco_generate$test.coverage" NAME="test Coverage Results" MODIFIED="1568724274837" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/acco_generate$ACC_PARSER_SongWeight.coverage" NAME="ACC_PARSER_SongWeight Coverage Results" MODIFIED="1567386116938" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ACCO_PARSER" />
-    <SUITE FILE_PATH="coverage/acco_generate$ACCO_GLOBALDATA_Chord.coverage" NAME="ACCO_GLOBALDATA_Chord Coverage Results" MODIFIED="1567609648618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ACCO_GLOBALDATA" />
+    <SUITE FILE_PATH="coverage/acco_generate$ACCO_GLOBALDATA_Chord.coverage" NAME="ACCO_GLOBALDATA_Chord Coverage Results" MODIFIED="1568854799621" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ACCO_GLOBALDATA" />
     <SUITE FILE_PATH="coverage/acco_generate$instrument.coverage" NAME="instrument Coverage Results" MODIFIED="1555343798255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/music_style" />
     <SUITE FILE_PATH="coverage/acco_generate$parser_music__1_.coverage" NAME="parser_music (1) Coverage Results" MODIFIED="1556017983846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/parser_midi" />
   </component>
@@ -39,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="17" selection-start-line="17" selection-end-line="87" selection-end-column="11" />
+            <state relative-caret-position="1504">
+              <caret line="88" selection-start-line="88" selection-end-line="88" />
               <folding>
                 <element signature="e#265#286#0" expanded="true" />
               </folding>
@@ -53,7 +57,7 @@
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -66,8 +70,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
+            <state relative-caret-position="575">
+              <caret line="39" column="48" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
               <folding>
                 <element signature="e#175#196#0" expanded="true" />
               </folding>
@@ -78,7 +82,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grid_search.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
+            <state relative-caret-position="391">
               <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
             </state>
           </provider>
@@ -87,28 +91,27 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_StorageModel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="339">
+            <state relative-caret-position="2438">
               <caret line="106" column="3" selection-start-line="106" selection-start-column="3" selection-end-line="106" selection-end-column="3" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="214">
-              <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
+            <state relative-caret-position="161">
+              <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
               <folding>
-                <element signature="e#583#604#0" expanded="true" />
-                <element signature="e#1047#1518#0" />
-                <element signature="e#2064#2978#0" />
-                <element signature="e#3028#3370#0" />
-                <element signature="e#3425#3510#0" />
-                <element signature="e#3564#3630#0" />
-                <element signature="e#3684#3953#0" />
-                <element signature="e#4002#4676#0" />
-                <element signature="e#4725#8052#0" />
-                <element signature="e#7387#9552#0" />
+                <element signature="e#1047#1523#0" />
+                <element signature="e#1738#2287#0" />
+                <element signature="e#1569#2483#0" />
+                <element signature="e#2533#2875#0" />
+                <element signature="e#3069#3135#0" />
+                <element signature="e#3189#3458#0" />
+                <element signature="e#3506#4180#0" />
+                <element signature="e#4228#7555#0" />
+                <element signature="e#7605#9770#0" />
               </folding>
             </state>
           </provider>
@@ -126,7 +129,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ACCO_STYLE/ACCO_STYLE_Instrument.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
+            <state relative-caret-position="1288">
               <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
             </state>
           </provider>
@@ -135,8 +138,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1340">
-              <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
+            <state relative-caret-position="178">
+              <caret line="74" column="56" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
             </state>
           </provider>
         </entry>
@@ -181,21 +184,21 @@
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_TF_IDF.py" />
         <option value="$USER_HOME$/venv/Lib/site-packages/urllib2.py" />
         <option value="$USER_HOME$/venv/Lib/site-packages/sklearn/utils/testing.py" />
-        <option value="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py" />
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_BayesModel.py" />
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_RandomForestModel.py" />
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_SVMModel.py" />
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_DescionTree.py" />
         <option value="$PROJECT_DIR$/grid_search.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/main.py" />
         <option value="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py" />
         <option value="$PROJECT_DIR$/ACCO_PARSER/ACC_PARSER_SongWeight.py" />
         <option value="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_ChordDFA.py" />
         <option value="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_StorageParser.py" />
-        <option value="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py" />
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_MLPClassifierModel.py" />
         <option value="$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_StorageModel.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py" />
+        <option value="$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py" />
       </list>
     </option>
   </component>
@@ -217,6 +220,16 @@
             <path>
               <item name="acco-generate" type="b2602c69:ProjectViewProjectNode" />
               <item name="acco-generate" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acco-generate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acco-generate" type="462c0819:PsiDirectoryNode" />
+              <item name="ACCO_GLOBALDATA" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="acco-generate" type="b2602c69:ProjectViewProjectNode" />
+              <item name="acco-generate" type="462c0819:PsiDirectoryNode" />
+              <item name="ACCO_PARSER" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -248,7 +261,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python.ACCO_GLOBALDATA_Chord">
     <configuration name="ACCO_GLOBALDATA_Chord" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="acco-generate" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -361,10 +374,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.grid_search" />
         <item itemvalue="Python.ACCO_GLOBALDATA_Chord" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.grid_search" />
         <item itemvalue="Python.ACC_PARSER_SongWeight" />
       </list>
     </recent_temporary>
@@ -429,12 +442,14 @@
       <workItem from="1568463281474" duration="4382000" />
       <workItem from="1568510660240" duration="20159000" />
       <workItem from="1568549532917" duration="9445000" />
-      <workItem from="1568598697617" duration="3484000" />
+      <workItem from="1568598697617" duration="4527000" />
+      <workItem from="1568723562532" duration="1309000" />
+      <workItem from="1568854589269" duration="1386000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="277581000" />
+    <option name="totallyTimeSpent" value="281319000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -446,9 +461,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22989276" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23659517" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -640,9 +656,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACC_PARSER_SongWeight.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACC_PARSER_SongWeight.py" />
     <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_ChordDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
@@ -657,81 +671,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="123" column="20" selection-start-line="123" selection-start-column="20" selection-end-line="123" selection-end-column="20" />
-          <folding>
-            <element signature="e#583#604#0" expanded="true" />
-            <element signature="e#1047#1518#0" />
-            <element signature="e#2064#2978#0" />
-            <element signature="e#3028#3370#0" />
-            <element signature="e#3425#3510#0" />
-            <element signature="e#3564#3630#0" />
-            <element signature="e#3684#3953#0" />
-            <element signature="e#4002#4676#0" />
-            <element signature="e#4725#8052#0" />
-            <element signature="e#7387#9552#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_MLPClassifierModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_StorageModel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="106" column="3" selection-start-line="106" selection-start-column="3" selection-end-line="106" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1340">
-          <caret line="35" column="25" selection-start-line="35" selection-start-column="25" selection-end-line="35" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1127">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ACCO_STYLE/ACCO_STYLE_Instrument.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grid_search.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
-          <folding>
-            <element signature="e#175#196#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_MLPClassifierModel.py" />
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="17" selection-start-line="17" selection-end-line="87" selection-end-column="11" />
+        <state relative-caret-position="1504">
+          <caret line="88" selection-start-line="88" selection-end-line="88" />
           <folding>
             <element signature="e#265#286#0" expanded="true" />
           </folding>
@@ -746,6 +690,69 @@
         <state split_layout="SPLIT">
           <first_editor />
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="39" column="48" selection-start-line="39" selection-start-column="48" selection-end-line="39" selection-end-column="48" />
+          <folding>
+            <element signature="e#175#196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_search.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="17" column="56" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_MODEL/ACCO_MODEL_StorageModel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2438">
+          <caret line="106" column="3" selection-start-line="106" selection-start-column="3" selection-end-line="106" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_CNotes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1127">
+          <caret line="49" selection-start-line="49" selection-end-line="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_STYLE/ACCO_STYLE_Instrument.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1288">
+          <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_GLOBALDATA/ACCO_GLOBALDATA_Chord.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="74" column="56" selection-start-line="74" selection-start-column="56" selection-end-line="74" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ACCO_PARSER/ACCO_PARSER_Song.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+          <folding>
+            <element signature="e#1047#1523#0" />
+            <element signature="e#1738#2287#0" />
+            <element signature="e#1569#2483#0" />
+            <element signature="e#2533#2875#0" />
+            <element signature="e#3069#3135#0" />
+            <element signature="e#3189#3458#0" />
+            <element signature="e#3506#4180#0" />
+            <element signature="e#4228#7555#0" />
+            <element signature="e#7605#9770#0" />
+          </folding>
         </state>
       </provider>
     </entry>

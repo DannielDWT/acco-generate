@@ -33,6 +33,7 @@ class CChord:
     G = chord.Chord([5, 7, 2], duration=duration.Duration(4.0))
     G7 = chord.Chord([5, 7, 2, 4], duration=duration.Duration(4.0))
     Am = chord.Chord([6, 1, 3], duration=duration.Duration(4.0))
+
     #E7 = chord.Chord([])
 
     CChord_To_Enum = {C: CChordEnum.C, Dm: CChordEnum.DM, Em: CChordEnum.EM, F:CChordEnum.F,
@@ -71,6 +72,27 @@ class CChord:
                            CChordEnum.G: 'G2 G3 B3 G3 G4 G3 B3 G3',
                            CChordEnum.F: 'F3 A3 C4 A3 F4 A3 C4 A3'}
 
+    brokenChord_To_strumChord = {'C3 G3 C4 G3 E4 G3 C4 G3': 'E2 C3 E3 G3 C4 E4',
+                                 'A2 A3 C4 A3 E4 A3 C4 A3': 'E2 A2 E3 A3 C4 E4',
+                                 'E3 G3 B3 G3 E4 G3 B3 G3': 'E2 B2 E3 G3 B3 E4',
+                                 'D3 A3 D4 A3 F4 A3 D4 A3': 'E2 A2 D3 A3 D4 F4',
+                                 'G2 G3 B3 G3 G4 G3 B3 G3': 'G2 B2 D3 G3 B3 G4',
+                                 'F3 A3 C4 A3 F4 A3 C4 A3': 'F2 C3 F3 A3 C4 F4'}
+
+    strumChord_To_Enum = {CChordEnum.C: 'E2 C3 E3 G3 C4 E4',
+                           CChordEnum.AM: 'E2 A2 E3 A3 C4 E4',
+                           CChordEnum.EM: 'E2 B2 E3 G3 B3 E4',
+                           CChordEnum.DM: 'E2 A2 D3 A3 D4 F4',
+                           CChordEnum.G: 'G2 B2 D3 G3 B3 G4',
+                           CChordEnum.F: 'F2 C3 F3 A3 C4 F4'}
+
+    Enum_To_strumChord = {'E2 C3 E3 G3 C4 E4': CChordEnum.C,
+                          'E2 A2 E3 A3 C4 E4': CChordEnum.AM,
+                          'E2 B2 E3 G3 B3 E4': CChordEnum.EM,
+                          'E2 A2 D3 A3 D4 F4': CChordEnum.DM,
+                          'G2 B2 D3 G3 B3 G4': CChordEnum.G,
+                          'F2 C3 F3 A3 C4 F4': CChordEnum.F}
+
 if __name__ == "__main__":
     #print(note.Note(0).pitch)
     CChord.C.show("text")
@@ -95,10 +117,6 @@ if __name__ == "__main__":
     #print("Your generated music is saved in output/my_music.midi")
     mf.close()
 
-    pingfan = converter.parse('../ACCO_DATASET/train/houlai.mid')
+    pingfan = converter.parse('../ACCO_DATASET/saoxian.mid')
     pingfan.show('text')
-    for n in pingfan[0]:
-        if isinstance(n, note.Note):
-            print(n.pitch)
-            print(n.beatStrength)
     #pingfan.show("text")

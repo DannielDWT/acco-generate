@@ -23,6 +23,7 @@ y结构为:
            2. 考虑加入时长特征，通过引入一个时长因子来使音的时长也体现出来，否则音长但音少的音极有可能被视为不重要音
 2019-09-16 1. 采用新的解析方法，特征为 歌曲头部， 歌曲尾部， 和弦内音， 强拍音， 最长音， 频次最高音， 小节第一个音
            2. 删除或将过往解析方法移到storageParser
+2019-09-19 1. 加入扫弦
 '''
 
 from music21 import *
@@ -39,7 +40,7 @@ class SongParser:
     def __init__(self):
         pass
 
-    def unparse(self, y):
+    def unparse_brokenChord(self, y):
         '''
         :param y: 预测获得的m * 1维矩阵
         :return: 未加头部的伴奏音轨
@@ -53,7 +54,28 @@ class SongParser:
                 index += 1
                 offset += 4.0
                 continue
-            acco.insert(offset, CChord.Enum_To_CChord(value))
+            brokenChord_str = CChord.Enum_To_brokenChord[value]
+            for bc in brokenChord_str:
+                n = note.Note(bc)
+                n.quarterLength = 0.5
+                acco.insert(offset, n)
+                offset += 0.5
+            index += 1
+        return acco
+    def unparse_strumChord(self, y):
+        acco = stream.Stream()
+        offset = 0.0
+        index = 0
+        for value in y:
+            if index in self.predict_remove:
+                self.predict_remove.remove(index)
+                index += 1
+                offset += 4.0
+                continue
+            strumChord_str = CChord.Enum_To_strumChord[value]
+            ch = chord.Chord(strumChord_str)
+            ch.quarterLength = 4.0
+            acco.insert(offset, ch)
             offset += 4.0
             index += 1
         return acco

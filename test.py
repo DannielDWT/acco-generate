@@ -16,7 +16,6 @@
 
 
 from music21 import *
-from ACCO_PARSER.ACC_PARSER_SongWeight import SongParser_weight
 from ACCO_PARSER.ACCO_PARSER_Song import SongParser
 from ACCO_GLOBALDATA.ACCO_GLOBALDATA_CNotes import CNotes
 from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
@@ -24,7 +23,6 @@ from ACCO_MODEL.ACCO_MODEL_SVMModel import SVCModel
 from ACCO_MODEL.ACCO_MODEL_DescionTree import DecisionTreeModel
 from ACCO_MODEL.ACCO_MODEL_RandomForestModel import randomForstModel
 from pandas.api.types import CategoricalDtype
-from ACCO_MODEL.ACCO_MODEL_MLPClassifierModel import MLPModel
 from sklearn import linear_model
 import numpy as np
 import pandas as pd
@@ -55,7 +53,7 @@ for file in filelist:
 #print(X)
 #print(y)
 #model = linear_model.LogisticRegression()
-model = DecisionTreeModel()
+model = randomForstModel()
 training_data = np.hstack((X, y))
 df = pd.DataFrame(training_data)
 df.columns = ['head', 'tail', 'chord_inside', 'beat', 'longest', 'fre', 'first', 'chord']
@@ -80,12 +78,15 @@ label['chord'] = label['chord'].astype(int)
 final = pd.concat([train_x, label], axis=1)
 Y = final['chord'].values
 XX = final.drop('chord', axis=1).values
-loss = model.train(XX, y)
+#loss = model.train(XX, y)
 #print(model.coef_)
 #print(final.head())
 #corr = final.corr()
 #df2 = pd.DataFrame(df.corr())
-print(loss)
+#print(loss)
+
+
+
 
 
 
