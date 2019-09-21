@@ -8,8 +8,11 @@
 @file: ACCO_MODEL_SVMModel.py
 @time: 2019-08-22 22:37
 @desc:
+支持向量机模型
+2019-09-21 因为采用了随机森林将其注释掉
 '''
 
+'''
 import numpy as np
 from sklearn.svm import SVC
 from sklearn.model_selection import train_test_split
@@ -17,9 +20,9 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.preprocessing import StandardScaler
 
 class SVCModel:
-    '''
+    
     建立随机森林模型，用于训练和预测
-    '''
+    
 
     def __init__(self):
         self.__model = SVC(C=30, kernel='rbf')
@@ -38,3 +41,4 @@ class SVCModel:
         predict_y = self.__model.predict(X)
         return np.mat(predict_y)
 
+'''

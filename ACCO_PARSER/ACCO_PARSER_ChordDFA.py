@@ -8,6 +8,8 @@
 @file: ACCO_PARSER_ChordDFA.py
 @time: 2019-08-24 11:52
 @desc:
+用于探测序列模式的有限状态机
+当前版本不用 暂时注释。
 '''
 '''
 from music21 import *

@@ -8,18 +8,18 @@
 @file: grid_search.py
 @time: 2019-09-15 20:13
 @desc:
+用于调参的文件，采用grid_search+CV
+2019-09-21 by danniel 注释，保留文件
 '''
 
-
+'''
 from music21 import *
-from ACCO_PARSER.ACC_PARSER_SongWeight import SongParser_weight
 from ACCO_PARSER.ACCO_PARSER_Song import SongParser
 from ACCO_GLOBALDATA.ACCO_GLOBALDATA_CNotes import CNotes
 from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
 from ACCO_MODEL.ACCO_MODEL_SVMModel import SVCModel
 from ACCO_MODEL.ACCO_MODEL_RandomForestModel import randomForstModel
 from pandas.api.types import CategoricalDtype
-from ACCO_MODEL.ACCO_MODEL_MLPClassifierModel import MLPModel
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
@@ -47,7 +47,6 @@ for file in filelist:
         X, y = parser.training_join(X, X_one, y, y_one)
 
 #model = RandomForestClassifier(min_samples_split=4, max_features='auto', criterion='gini', n_estimators=150)
-
 training_data = np.hstack((X, y))
 df = pd.DataFrame(training_data)
 df.columns = ['head', 'tail', 'chord_inside', 'beat', 'longest', 'fre', 'first', 'chord']
@@ -62,9 +61,10 @@ X_train, X_test, y_train, y_test = train_test_split(train_x.values, y.reshape(-1
 #model.fit(X_train, y_train)
 #loss = model.score(X_test, y_test)
 #model = SVC(kernel='rbf', C=30)
-model = nb.GaussianNB()
-parameters={}
+model = RandomForestClassifier()
+parameters={'min_samples_split': [4, 5, 6, 7, 8], 'n_estimators': [300, 325, 350, 370, 400]}
 grid = GridSearchCV(estimator=model, param_grid=parameters, cv=5)
 grid.fit(X_train, y_train)
 print(grid.best_score_)
 print(grid.best_params_)
+'''

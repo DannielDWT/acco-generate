@@ -8,8 +8,11 @@
 @file: ACCO_MODEL_DescionTree.py
 @time: 2019-09-15 22:14
 @desc:
+决策树模型。
+2019-09-21 by danniel因最终采用随机森林而注释掉决策树模型
 '''
 
+'''
 import numpy as np
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.model_selection import train_test_split
@@ -17,9 +20,9 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.preprocessing import StandardScaler
 
 class DecisionTreeModel:
-    '''
+    
     建立决策树模型，用于训练和预测
-    '''
+    
 
     def __init__(self):
         self.__model = DecisionTreeClassifier(criterion='gini', max_depth=10, min_samples_split=6, splitter='best')
@@ -37,3 +40,5 @@ class DecisionTreeModel:
     def predict(self, X):
         predict_y = self.__model.predict(X)
         return np.mat(predict_y)
+        
+'''

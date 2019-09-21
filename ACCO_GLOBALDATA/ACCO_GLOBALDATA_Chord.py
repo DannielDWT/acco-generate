@@ -8,6 +8,8 @@
 @file: ACCO_GLOBALDATA_Chord.py
 @time: 2019-08-18 14:38
 @desc:
+包含相关类型的和弦生成字典（表）的全局数据文件
+存储了和弦对应的枚举类型，和扫弦，分界和弦以及正常时值为4的三音同弹和弦
 '''
 
 
@@ -25,39 +27,6 @@ class CChord:
         G7 = 6
         #E7 = 7
 
-
-    C = chord.Chord([note.Note('C'), note.Note('F'), note.Note('G')], duration=duration.Duration(4.0))
-    Dm = chord.Chord([2, 4, 6], duration=duration.Duration(4.0))
-    Em = chord.Chord([3, 5, 7], duration=duration.Duration(4.0))
-    F = chord.Chord([4, 6, 1], duration=duration.Duration(4.0))
-    G = chord.Chord([5, 7, 2], duration=duration.Duration(4.0))
-    G7 = chord.Chord([5, 7, 2, 4], duration=duration.Duration(4.0))
-    Am = chord.Chord([6, 1, 3], duration=duration.Duration(4.0))
-
-    #E7 = chord.Chord([])
-
-    CChord_To_Enum = {C: CChordEnum.C, Dm: CChordEnum.DM, Em: CChordEnum.EM, F:CChordEnum.F,
-                      G: CChordEnum.G, G7:CChordEnum.G7, Am: CChordEnum.AM}
-    Enum_To_CChord = {CChordEnum.C: C, CChordEnum.DM: Dm, CChordEnum.EM: Em, CChordEnum.F: F,
-                      CChordEnum.G: G, CChordEnum.G7: G7, CChordEnum.AM: Am}
-
-    Enum_To_Column_weight = {CChordEnum.C: [0, 2, 8],
-                             CChordEnum.F: [1, 3, 11],
-                             CChordEnum.EM: [8, 13, 10],
-                             CChordEnum.AM: [0, 3, 9],
-                             CChordEnum.DM: [4, 6, 11],
-                             CChordEnum.G: [5, 7, 13],
-                             CChordEnum.G7: [4, 5, 7, 12, 13]}
-
-    '''
-    Enum_To_Column_weight = {CChordEnum.C: [0],
-                             CChordEnum.F: [1],
-                             CChordEnum.EM: [2],
-                             CChordEnum.AM: [3],
-                             CChordEnum.DM: [4],
-                             CChordEnum.G: [5],
-                             CChordEnum.G7: [6]}
-    '''
     brokenChord_To_Enum = {'C3 G3 C4 G3 E4 G3 C4 G3': CChordEnum.C,
                            'A2 A3 C4 A3 E4 A3 C4 A3': CChordEnum.AM,
                            'E3 G3 B3 G3 E4 G3 B3 G3': CChordEnum.EM,
@@ -79,44 +48,33 @@ class CChord:
                                  'G2 G3 B3 G3 G4 G3 B3 G3': 'G2 B2 D3 G3 B3 G4',
                                  'F3 A3 C4 A3 F4 A3 C4 A3': 'F2 C3 F3 A3 C4 F4'}
 
-    strumChord_To_Enum = {CChordEnum.C: 'E2 C3 E3 G3 C4 E4',
+    Enum_To_strumChord = {CChordEnum.C: 'E2 C3 E3 G3 C4 E4',
                            CChordEnum.AM: 'E2 A2 E3 A3 C4 E4',
                            CChordEnum.EM: 'E2 B2 E3 G3 B3 E4',
                            CChordEnum.DM: 'E2 A2 D3 A3 D4 F4',
                            CChordEnum.G: 'G2 B2 D3 G3 B3 G4',
                            CChordEnum.F: 'F2 C3 F3 A3 C4 F4'}
 
-    Enum_To_strumChord = {'E2 C3 E3 G3 C4 E4': CChordEnum.C,
+    strumChord_To_Enum = {'E2 C3 E3 G3 C4 E4': CChordEnum.C,
                           'E2 A2 E3 A3 C4 E4': CChordEnum.AM,
                           'E2 B2 E3 G3 B3 E4': CChordEnum.EM,
                           'E2 A2 D3 A3 D4 F4': CChordEnum.DM,
                           'G2 B2 D3 G3 B3 G4': CChordEnum.G,
                           'F2 C3 F3 A3 C4 F4': CChordEnum.F}
 
-if __name__ == "__main__":
-    #print(note.Note(0).pitch)
-    CChord.C.show("text")
-    print(CChord.C.pitches)
-    print(CChord.CChordEnum.C * 8)
+    Enum_To_Chord = {CChordEnum.C: 'C4 E4 G4',
+                     CChordEnum.AM: 'A3 C4 E4',
+                     CChordEnum.EM: 'G3 B3 E4',
+                     CChordEnum.DM: 'D3 F3 A3',
+                     CChordEnum.G: 'G3 B3 D4',
+                     CChordEnum.F: 'F3 A3 C4'}
 
-    out_stream = stream.Stream()
-    out_stream.insert(0.0, key.Key('C'))
-    out_stream.insert(0.0, CChord.C)
-    out_stream.insert(4.0, note.Note('C'))
-    out_stream.insert(5.0, note.Note('D'))
-    out_stream.insert(6.0, note.Note('E'))
-    out_stream.insert(7.0, note.Note('F'))
-    out_stream.insert(8.0, note.Note('G'))
-    out_stream.insert(9.0, note.Note('A'))
-    out_stream.insert(10.0, note.Note('B'))
-    out_stream.insert(11.0, note.Note(0))
-    #out_stream.show("text")
-    mf = midi.translate.streamToMidiFile(out_stream)
-    mf.open("my_music_chord_test.midi", 'wb')
-    mf.write()
-    #print("Your generated music is saved in output/my_music.midi")
-    mf.close()
+    Chord_To_Enum = {'C4 E4 G4': CChordEnum.C,
+                     'A3 C4 E4': CChordEnum.AM,
+                     'G3 B3 E4': CChordEnum.EM,
+                     'D3 F3 A3': CChordEnum.DM,
+                     'G3 B3 D4': CChordEnum.G,
+                     'F3 A3 C4': CChordEnum.F}
 
-    pingfan = converter.parse('../ACCO_DATASET/saoxian.mid')
-    pingfan.show('text')
-    #pingfan.show("text")
+
+

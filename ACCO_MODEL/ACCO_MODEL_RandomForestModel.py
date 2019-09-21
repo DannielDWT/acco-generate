@@ -8,6 +8,7 @@
 @file: ACCO_MODEL_RandomForestModel.py
 @time: 2019-08-22 22:22
 @desc:
+本项目目前采用的随机森林模型
 '''
 
 import numpy as np
@@ -22,22 +23,17 @@ class randomForstModel:
     '''
 
     def __init__(self):
-        self.__model = RandomForestClassifier(min_samples_split=4, max_features='auto',
-                                              criterion='gini', n_estimators=150)
+        self.__model = RandomForestClassifier(min_samples_split=5, max_features='auto',
+                                              criterion='gini', n_estimators=350)
         #self.__ss = StandardScaler()
 
     def train(self, X, y):
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=33)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=33)
         self.__model.fit(X_train, y_train)
-        loss = self.__model.score(X_test, y_test)
-        predict_y = self.__model.predict(X_test)
-        print(X_test)
-        print(y_test.tolist())
-        print(predict_y)
-        #mae = mean_absolute_error(predict_y, y_test)
-        #mse = mean_squared_error(predict_y, y_test)
-        return loss
+        test_loss = self.__model.score(X_test, y_test)
+        train_loss = self.__model.score(X_train, y_train)
+        return test_loss, train_loss
 
     def predict(self, X):
         predict_y = self.__model.predict(X)
-        return np.mat(predict_y)
+        return predict_y

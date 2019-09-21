@@ -24,6 +24,7 @@ y结构为:
 2019-09-16 1. 采用新的解析方法，特征为 歌曲头部， 歌曲尾部， 和弦内音， 强拍音， 最长音， 频次最高音， 小节第一个音
            2. 删除或将过往解析方法移到storageParser
 2019-09-19 1. 加入扫弦
+2019-09-21 1. 加入三音同时弹奏的和弦
 '''
 
 from music21 import *
@@ -38,6 +39,7 @@ from ACCO_GLOBALDATA.ACCO_GLOBALDATA_Chord import CChord
 class SongParser:
 
     def __init__(self):
+        self.predict_remove = []
         pass
 
     def unparse_brokenChord(self, y):
@@ -54,8 +56,9 @@ class SongParser:
                 index += 1
                 offset += 4.0
                 continue
-            brokenChord_str = CChord.Enum_To_brokenChord[value]
-            for bc in brokenChord_str:
+            brokenChord_strList = CChord.Enum_To_brokenChord[value].split(' ')
+            for bc in brokenChord_strList:
+                print(bc)
                 n = note.Note(bc)
                 n.quarterLength = 0.5
                 acco.insert(offset, n)
@@ -72,13 +75,35 @@ class SongParser:
                 index += 1
                 offset += 4.0
                 continue
-            strumChord_str = CChord.Enum_To_strumChord[value]
-            ch = chord.Chord(strumChord_str)
+            strumChord_str = CChord.Enum_To_strumChord[int(value)]
+            ch_length = [1, 0.5, 0.25, 0.25, 1, 0.5, 0.25, 0.25]
+            for length in ch_length:
+                ch = chord.Chord(strumChord_str)
+                ch.quarterLength = length
+                acco.insert(offset, ch)
+                offset += length
+            index += 1
+        return acco
+
+    def unparse_Chord(self, y):
+        acco = stream.Stream()
+        offset = 0.0
+        index = 0
+        for value in y:
+            if index in self.predict_remove:
+                self.predict_remove.remove(index)
+                index += 1
+                offset += 4.0
+                continue
+            chord_str = CChord.Enum_To_Chord[int(value)]
+            ch = chord.Chord(chord_str)
+            ch.duration = duration.Duration(4.0)
             ch.quarterLength = 4.0
             acco.insert(offset, ch)
             offset += 4.0
             index += 1
         return acco
+
     def parser_header(self, melody):
         '''
         :param melody: 主旋律音轨
@@ -112,7 +137,7 @@ class SongParser:
         return midi_stream[0], midi_stream[1]
     def parser_midi_predict(self, filepath):
         midi_stream = converter.parse(filepath)
-        return midi_stream
+        return midi_stream[0]
     def training_join(self, X1, X2, y1, y2):
         '''
         :param X1: 一首歌曲组成的训练样本X1
@@ -188,21 +213,15 @@ class SongParser:
                 else:
                     freNotes[n[1].name] += 1
                 notesStr += n[1].name
-            #print(notesStr)
-            #print(self.containsChord(notesStr))
             temp[2] = self.containsChord(notesStr)
-            #print(beatStrengthNotes)
             temp[3] = CNotes.CNotes_To_Enum[max(beatStrengthNotes, key=beatStrengthNotes.get)]
             temp[4] = CNotes.CNotes_To_Enum[max(longestNotes, key=longestNotes.get)]
             temp[5] = CNotes.CNotes_To_Enum[max(freNotes, key=freNotes.get)]
-            #print(temp)
-            #temp = [fre / sum for fre in temp]
             melody_m += 1
             X.append(temp)
 
         offsetTuples_acco = [(int(ch.offset / 4), ch) for ch in acco]
         acco_m = 0
-        #print(melody_m)
         for key_x, group in groupby(offsetTuples_acco, lambda x: x[0]):
             if (acco_m > melody_m):
                 break
@@ -215,12 +234,10 @@ class SongParser:
                 brokenChord_str += temp
             brokenChord_str = brokenChord_str.strip(' ')
             if (brokenChord_str not in CChord.brokenChord_To_Enum.keys() or brokenChord_str == ''):
-                #print('in' + str(acco_m))
                 X = np.delete(X, acco_m, 0)
                 melody_m -= 1
                 continue
             y.append(CChord.brokenChord_To_Enum[brokenChord_str])
-            #print(str(acco_m) + 'and' + str(melody_m))
             acco_m += 1
         return np.mat(X), np.mat(y).transpose()
     def parseSong_predict(self, melody):
@@ -232,7 +249,6 @@ class SongParser:
         X = []
         melody_m = 0
         melody_Tuples = [(int(n.offset / 4), n) for n in melody]
-        self.predict_remove = []
         head = 0
         tail = melody_Tuples[len(melody_Tuples) - 1][0]
         for key_x, group in groupby(melody_Tuples, lambda x: x[0]):
@@ -264,9 +280,6 @@ class SongParser:
                 else:
                     freNotes[n[1].name] += 1
                 notesStr += n[1].name
-            if notesStr == '':
-                self.predict_remove.append(key_x)
-                continue
             temp[2] = self.containsChord(notesStr)
             temp[3] = CNotes.CNotes_To_Enum[max(beatStrengthNotes, key=beatStrengthNotes.get)]
             temp[4] = CNotes.CNotes_To_Enum[max(longestNotes, key=longestNotes.get)]
