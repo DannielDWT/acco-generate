@@ -61,7 +61,7 @@
       4. 在main.py中有设置节奏和乐器的代码，目前尚未提供良好的接口，因而需要自定义节奏和乐器的，需要手动更改几行代码，略微懂一点music21库使用方法。
 
 #### 参考：
-      <http://web.mit.edu/music21/doc/about/what.html>.
-      <https://scikit-learn.org/stable/>.
+      1. music21: <http://web.mit.edu/music21/doc/about/what.html>.
+      2. sklearn: <https://scikit-learn.org/stable/>.
 
 
